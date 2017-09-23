@@ -320,12 +320,7 @@ func (gp *GenericPool) specializePod(pod *v1.Pod, metadata *api.ObjectMeta) erro
 	maxRetries := 20
 	for i := 0; i < maxRetries; i++ {
 
-		md, err := json.Marshal(metadata)
-		if err != nil {
-			return err
-		}
-
-		resp2, err := http.Post(specializeUrl, "application/json", bytes.NewReader(md))
+		resp2, err := http.Post(specializeUrl, "text/plain", bytes.NewReader([]byte{}))
 		if err == nil && resp2.StatusCode < 300 {
 			// Success
 			resp2.Body.Close()
